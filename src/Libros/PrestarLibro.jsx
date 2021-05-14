@@ -81,15 +81,11 @@ export default function PrestarLibro(props) {
                             <h4>{form.nombre}</h4>
                         </div>
                         <form className="row">                        
-                            <div className="col-12">
-                                <label className="form-label mt-3">Persona a prestar</label>
-                                <input type="text" name="persona_id" placeholder="persona_id" value={form.persona_id} onChange={handleChangePersona_id} className="form-control"/>
-                            </div>
                             {/* <div className="col-12">
                                 <label className="form-label mt-3">Persona a prestar</label>
                                 <input type="text" name="persona_id" placeholder="persona_id" value={form.persona_id} onChange={handleChangePersona_id} className="form-control"/>
                             </div> */}
-                            {/* <div className="col-12">
+                            <div className="col-12">
                                 <label htmlFor="input3" className="form-label mt-3">Persona a prestar</label>
                                 <select name="persona_id" id="input3" onChange={handleChangePersona_id} className="form-select">
                                     <option>Seleccione una persona</option>
@@ -99,7 +95,7 @@ export default function PrestarLibro(props) {
                                         </option>
                                     ))}
                                 </select>                                                                
-                            </div>  */}
+                            </div> 
                         </form>
                         <button onClick={guardar} className="btn btn-primary mt-4">Guardar</button>
                     </div>
