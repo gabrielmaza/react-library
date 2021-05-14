@@ -15,6 +15,7 @@ export default function ListadoLibro() {
         const [form, setForm] = React.useState(
             {nombre:"", 
             descripcion:"", 
+            id: "",
             categoria_id: "", 
             persona_id: "",
         });
@@ -53,33 +54,36 @@ export default function ListadoLibro() {
         obtenerPersonas();
     }, []);
 
+    const handleChangeId = e => {
+        const nuevoState = JSON.parse(JSON.stringify(form));
+        nuevoState.id = e.target.value;
+        setForm(nuevoState);
+    }
+
     const handleChangeNombre = e => {
-        // e.target.value
         const nuevoState = JSON.parse(JSON.stringify(form));
         nuevoState.nombre = e.target.value;
         setForm(nuevoState);
     };
 
     const handleChangeDescripcion = e => {
-        // e.target.value
         const nuevoState = JSON.parse(JSON.stringify(form));
         nuevoState.descripcion = e.target.value;
         setForm(nuevoState);
     };
 
     const handleChangeCategoria_id = e => {
-        // e.target.value
         const nuevoState = JSON.parse(JSON.stringify(form));
         nuevoState.categoria_id = e.target.value;
         setForm(nuevoState);
     };
 
     const handleChangePersona_id = e => {
-        // e.target.value
         const nuevoState = JSON.parse(JSON.stringify(form));
         nuevoState.persona_id = e.target.value;
         setForm(nuevoState);
     };
+
     const traerLibros = async() => {
         try {
             const respuesta = await axios.get('http://localhost:3000/api/libro');
@@ -95,8 +99,7 @@ export default function ListadoLibro() {
     }
 
     React.useEffect(() => {
-        traerLibros();
-        
+        traerLibros();        
     }, [])  
 
     const borrarLibro = async(idLibroABorrar) => {
@@ -138,6 +141,7 @@ export default function ListadoLibro() {
                 <table className="table">
                     <thead>
                         <tr>
+                            <th>#</th>
                             <th>Nombre</th>
                             <th>Descripción</th>
                             <th>Id de la categoria</th>
@@ -150,11 +154,25 @@ export default function ListadoLibro() {
                         {listado.map(unLibro => (
                             
                             <tr>
+                                <td>{unLibro.id}</td>
                                 <td>{unLibro.nombre}</td>
                                 <td>{unLibro.descripcion}</td>
                                 <td>{unLibro.categoria_id}</td>
                                 <td>{unLibro.persona_id}</td>
-                                <td><Link onClick={() => devolverLibro(unLibro.id.toString())}>Devolver</Link></td>
+                                <td>
+                                    <Link onClick={() => devolverLibro(unLibro.id.toString())} className="px-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-dash-fill" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd" d="M11 7.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5z"/>
+                                            <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                                        </svg>
+                                    </Link>
+                                    <Link className="px-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-plus-fill" viewBox="0 0 16 16">
+                                            <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                                            <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
+                                        </svg>
+                                    </Link>
+                                </td>
                                 <td>
                                     <Link to={"/libros/editar/"+ unLibro.id.toString()} class="px-2">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
