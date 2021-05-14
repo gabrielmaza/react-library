@@ -33,7 +33,7 @@ function App() {
       <Route exact path="/libros" component={ListadoLibro} />
       <Route exact path="/libros/editar/:id" component={EditarLibro} />
       <Route exact path="/libros/agregar" component={AltaLibro} />
-      <Route exact path="libros/prestar/:id" component={PrestarLibro} />
+      <Route exact path="/libros/prestar/:id" component={PrestarLibro} />
 
       </Router>
     </div>

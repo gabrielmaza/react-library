@@ -177,5 +177,5 @@ export default function ListadoLibro() {
 
         </div>
     )
-                    }
+}
 
