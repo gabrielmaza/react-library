@@ -70,7 +70,7 @@ export default function EditarLibro(props) {
         // form
          try {
             await axios.put('http://localhost:3000/api/libro/' + params.id, form);
-            // props.history.push('/libros');
+            props.history.push('/libros');
         } catch(e) {
             if (e.message === 'Network Error') {
                 toast.error("No me pude conectar con el servidor");
@@ -92,8 +92,8 @@ export default function EditarLibro(props) {
                         <form className="row">                        
                             <div className="col-12">
                                 <fieldset disabled>
-                                        <label htmlFor="disabledTextInput" className="form-label mt-3">Nombre</label>
-                                        <input type="text" name="nombre" placeholder="nombre" value={form.nombre} id="disabledTextInput" className="form-control"/>
+                                    <label htmlFor="disabledTextInput" className="form-label mt-3">Nombre</label>
+                                    <input type="text" name="nombre" placeholder="nombre" value={form.nombre} id="disabledTextInput" className="form-control"/>
                                 </fieldset>
                             </div>
                             <div className="col-12">
