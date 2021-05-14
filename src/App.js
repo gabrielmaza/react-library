@@ -12,12 +12,14 @@ import ListadoCategoria from './Categorias/ListadoCategoria';
 import AltaLibro from './Libros/AltaLibro';
 import EditarLibro from './Libros/EditarLibro';
 import ListadoLibro from './Libros/ListadoLibro';
+import PrestarLibro from './Libros/PrestarLibro';
 
 
 function App() {
   return (
     <div className="App">
       <Router>
+
       <Route exact path="/" component={Home} />
 
       <Route exact path="/personas" component={ListadoPersona} />
@@ -31,7 +33,7 @@ function App() {
       <Route exact path="/libros" component={ListadoLibro} />
       <Route exact path="/libros/editar/:id" component={EditarLibro} />
       <Route exact path="/libros/agregar" component={AltaLibro} />
-     
+      <Route exact path="libros/prestar/:id" component={PrestarLibro} />
 
       </Router>
     </div>

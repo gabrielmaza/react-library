@@ -34,7 +34,7 @@ export default function AltaLibro(props) {
             if (e.message === 'Network Error') {
                 toast.error("No me pude conectar con el servidor");
             } else {
-                toast.error(e.response.data.message);
+                toast.error(e.message);
             }
         }
     };

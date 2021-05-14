@@ -4,20 +4,18 @@ import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-export default function EditarLibro(props) {
+export default function PrestarLibro(props) {
     const params = useParams();
-    const [personas, setPersonas] = React.useState([]);
     const [form, setForm] = React.useState({
-        nombre: '', 
-        descripcion: '', 
+        nombre: '',
         persona_id: null,
     });
 
     const buscarLibroPorId = async(idLibro) => {
         try {
-            const respuesta = await axios.get('http://localhost:3000/api/libro/' + idLibro).
-            then((respuesta) => setForm({nombre: respuesta.data.nombre, descripcion: respuesta.data.descripcion, persona_id: respuesta.data.persona_id}))
-        } catch(e) {
+            const respuesta = await (await axios.get('http://localhost:3000/api/libro/' + idLibro)).
+            then((respuesta) => setForm({nombre: respuesta.data.nombre, persona_id: respuesta.data.persona_id}))            
+        } catch (e) {
             if (e.message === 'Network Error') {
                 toast.error("No me pude conectar con el servidor");
             } else {
@@ -26,39 +24,10 @@ export default function EditarLibro(props) {
         }
     }
 
-    const obtenerPersonas = async () => {
-        try {
-            const respuesta = await axios.get('http://localhost:3000/api/persona').
-            then((respuesta) => setPersonas(respuesta.data))
-        } catch (e) {
-            if (e.message === 'Network Error') {
-                toast.error("No me pude conectar con el servidor");
-            } else {
-                toast.error(e.message);
-            }
-        }
-    };
-
     React.useEffect(() => {
         if (!params.id) return;
         buscarLibroPorId(params.id)
     }, [params])
-
-    React.useEffect(() => {
-        obtenerPersonas();
-    }, []);
-
-    // const handleChangeNombre = (e) => {
-    //     const nuevoState = JSON.parse(JSON.stringify(form));
-    //     nuevoState.nombre = e.target.value;
-    //     setForm(nuevoState);
-    // }
-
-    const handleChangeDescripcion = e => {
-        const nuevoState = JSON.parse(JSON.stringify(form));
-        nuevoState.descripcion = e.target.value;
-        setForm(nuevoState);
-    };
 
     const handleChangePersona_id = e => {
         const nuevoState = JSON.parse(JSON.stringify(form));
@@ -75,7 +44,7 @@ export default function EditarLibro(props) {
             if (e.message === 'Network Error') {
                 toast.error("No me pude conectar con el servidor");
             } else {
-                toast.error(e.response.data.message);
+                toast.error(e.message);
             }
         }
     }
@@ -85,7 +54,7 @@ export default function EditarLibro(props) {
             <ToastContainer />
             <div className="col-12">
                 <div className="col-12 d-flex flex-direction-row justify-content-between align-items-center my-4">
-                    <h2>Editar libro</h2>
+                    <h2>Prestar libro</h2>
                 </div>
                 <div className="col-8 mx-auto">
                     <div className=" m-4 p-3 bg-light">
@@ -95,10 +64,6 @@ export default function EditarLibro(props) {
                                         <label htmlFor="disabledTextInput" className="form-label mt-3">Nombre</label>
                                         <input type="text" name="nombre" placeholder="nombre" value={form.nombre} id="disabledTextInput" className="form-control"/>
                                 </fieldset>
-                            </div>
-                            <div className="col-12">
-                                <label htmlFor="input2" className="form-label mt-3">Descripción</label>
-                                <input type="text" name="descripcion" placeholder="descripcion" value={form.descripcion} onChange={handleChangeDescripcion} id="input2" className="form-control"/>
                             </div>
                             <div className="col-12">
                                 <label htmlFor="input4" className="form-label mt-3">Persona</label>
@@ -122,7 +87,6 @@ export default function EditarLibro(props) {
             </div>
         </div>
     )
+
+
 }
-
-
-            
